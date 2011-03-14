@@ -34,6 +34,7 @@ if node[:cc_rails_portal][:checkout] == "true"
   git node[:cc_rails_portal][:root] do
     repository node[:cc_rails_portal][:source_url]
     reference node[:cc_rails_portal][:source_branch]
+    user node[:cc_rails_portal][:user]
     action :sync
   end
 end
