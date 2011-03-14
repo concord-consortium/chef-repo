@@ -22,8 +22,6 @@ end
 
 user node[:cc_rails_portal][:user] do
   comment "portal user"
-  system true
-  shell "/bin/false"
 end
 
 if node[:cc_rails_portal][:checkout] == "true"
