@@ -25,6 +25,12 @@ user node[:cc_rails_portal][:user] do
 end
 
 if node[:cc_rails_portal][:checkout] == "true"
+  directory node[:cc_rails_portal][:root] do
+    owner node[:cc_rails_portal][:user]
+    action :create
+    recursive true
+  end
+
   git node[:cc_rails_portal][:root] do
     repository node[:cc_rails_portal][:source_url]
     reference node[:cc_rails_portal][:source_branch]
