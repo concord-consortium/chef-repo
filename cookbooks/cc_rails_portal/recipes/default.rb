@@ -25,17 +25,18 @@ user node[:cc_rails_portal][:user] do
 end
 
 if node[:cc_rails_portal][:checkout] == "true"
-  directory node[:cc_rails_portal][:root] do
-    owner node[:cc_rails_portal][:user]
-    action :create
-    recursive true
-  end
-
   git node[:cc_rails_portal][:root] do
     repository node[:cc_rails_portal][:source_url]
     reference node[:cc_rails_portal][:source_branch]
-    user node[:cc_rails_portal][:user]
+    enable_submodules true
     action :sync
+  end
+
+  # we have to check out as root, and then change the ownership of the source directory since
+  # the source user won't have permissions to create a checkout in most places in the filesystem
+  execute "change-source-ownership" do
+    cwd node[:cc_rails_portal][:root]
+    command "chown -R #{node[:cc_rails_portal][:user]} #{node[:cc_rails_portal][:root]}"
   end
 end
 
