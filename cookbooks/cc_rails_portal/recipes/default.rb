@@ -63,6 +63,7 @@ if node[:cc_rails_portal][:checkout] == "true"
   execute "portal-setup" do
     user node[:cc_rails_portal][:user]
     cwd node[:cc_rails_portal][:root]
-    command "rake app:setup:new_app"
+    environment ({'RAILS_ENV' => node[:rails][:environment]})
+    command "yes | rake app:setup:new_app"
   end
 end
