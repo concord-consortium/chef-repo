@@ -60,6 +60,25 @@ execute "initialize-xportal-database" do
 end
 
 if node[:cc_rails_portal][:checkout] == "true"
+  # rake app:setup:new_app will fail without the database settings having reconnect: true
+  # force setting that
+  ruby_block "update-database-settings" do
+    block do
+      require 'yaml'
+
+      dbYml = File.join(node[:cc_rails_portal][:root], "config", "database.yml")
+      opts = YAML.load_file(dbYml)
+      opts.each do |env,h|
+        h["reconnect"] = true
+      end
+
+      File.open(dbYml, "w") do |f|
+        f.write(YAML.dump(opts))
+      end
+    end
+    action :create
+  end
+
   execute "portal-setup" do
     user node[:cc_rails_portal][:user]
     cwd node[:cc_rails_portal][:root]
