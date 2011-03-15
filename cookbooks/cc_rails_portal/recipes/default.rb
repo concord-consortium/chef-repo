@@ -37,6 +37,9 @@ if node[:cc_rails_portal][:checkout]
   execute "change-source-ownership" do
     cwd node[:cc_rails_portal][:root]
     command "chown -R #{node[:cc_rails_portal][:user]} #{node[:cc_rails_portal][:root]}"
+    # only do it if chown doesn't return an error when trying to chown the files
+    # some filesystems will throw an error when trying to run chown, NFS being one of them
+    only_if "chown #{node[:cc_rails_portal][:user]} #{node[:cc_rails_portal][:root]}"
   end
 end
 
