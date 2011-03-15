@@ -18,34 +18,35 @@
 # limitations under the License.
 #
 
-if not node[:repo][:dell][:enabled]
-  return
-end
+if ["centos","redhat","fedora"].include? node[:platform]
+  if not node[:repo][:dell][:enabled]
+    return
+  end
 
-yumkey "RPM-GPG-KEY-dell"
-yumkey "RPM-GPG-KEY-libsmbios"
+  yumkey "RPM-GPG-KEY-dell"
+  yumkey "RPM-GPG-KEY-libsmbios"
 
-yumrepo "dell-community" do
-  templatesource "dell-community-repository.repo.erb"
-end
+  yumrepo "dell-community" do
+    templatesource "dell-community-repository.repo.erb"
+  end
 
-yumrepo "dell-omsa-repository" do
-  templatesource "dell-omsa-repository.repo.erb"
-end
+  yumrepo "dell-omsa-repository" do
+    templatesource "dell-omsa-repository.repo.erb"
+  end
 
-yumrepo "dell-firmware-repository" do
-  templatesource "dell-firmware-repository.repo.erb"
-end
+  yumrepo "dell-firmware-repository" do
+    templatesource "dell-firmware-repository.repo.erb"
+  end
 
-package "srvadmin-all" do
-  action :install
-end
-
-if node[:repo][:dell][:install_optional]
-  package "firmware-tools" do
+  package "srvadmin-all" do
     action :install
   end
-  # yum install $(bootstrap_firmware) at your own risk
-end
 
+  if node[:repo][:dell][:install_optional]
+    package "firmware-tools" do
+      action :install
+    end
+    # yum install $(bootstrap_firmware) at your own risk
+  end
+end
 # vim: ai et sts=2 sw=2 ts=2

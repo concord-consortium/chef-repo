@@ -18,9 +18,11 @@
 # limitations under the License.
 #
 
-yumrepo "elff" do
-  action :enable
-  definition "Enterprise Linux Fast Forward"
-  key "RPM-GPG-KEY-ELFF"
-  url "http://download.elff.bravenet.com/#{node[:platform_version].split('.')[0]}/$basearch"
+if ["centos","redhat","fedora"].include? node[:platform]
+  yumrepo "elff" do
+    action :enable
+    definition "Enterprise Linux Fast Forward"
+    key "RPM-GPG-KEY-ELFF"
+    url "http://download.elff.bravenet.com/#{node[:platform_version].split('.')[0]}/$basearch"
+  end
 end

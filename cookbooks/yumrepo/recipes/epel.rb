@@ -18,10 +18,12 @@
 # limitations under the License.
 #
 
-yumrepo "epel" do
-  action :enable
-  definition "Extra Packages for Enterprise Linux"
-  key "RPM-GPG-KEY-EPEL"
-  url "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-#{node[:platform_version].split('.')[0]}&arch=$basearch"
-  url_is_mirrorlist true
+if ["centos","redhat","fedora"].include? node[:platform]
+  yumrepo "epel" do
+    action :enable
+    definition "Extra Packages for Enterprise Linux"
+    key "RPM-GPG-KEY-EPEL"
+    url "http://mirrors.fedoraproject.org/mirrorlist?repo=epel-#{node[:platform_version].split('.')[0]}&arch=$basearch"
+    url_is_mirrorlist true
+  end
 end

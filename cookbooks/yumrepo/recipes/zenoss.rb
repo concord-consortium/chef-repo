@@ -17,9 +17,11 @@
 # limitations under the License.
 #
 
-yumrepo "zenoss" do
-  action :enable
-  definition "ZenOss Stable repo"
-  key "RPM-GPG-KEY-zenoss"
-  url "http://dev.zenoss.com/yum/stable/"
+if ["centos","redhat","fedora"].include? node[:platform]
+  yumrepo "zenoss" do
+    action :enable
+    definition "ZenOss Stable repo"
+    key "RPM-GPG-KEY-zenoss"
+    url "http://dev.zenoss.com/yum/stable/"
+  end
 end

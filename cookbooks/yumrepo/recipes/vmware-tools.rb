@@ -18,62 +18,63 @@
 # limitations under the License.
 #
 
-if not node[:repo][:vmware][:enabled]
+if ["centos","redhat","fedora"].include? node[:platform]
+  if not node[:repo][:vmware][:enabled]
+    yumrepo "vmware-tools" do
+      action :disable
+    end
+    return
+  end
+
   yumrepo "vmware-tools" do
-    action :disable
+    action :enable
+    definition "VMware Tools"
+    key "VMWARE-PACKAGING-GPG-KEY"
+    url "http://packages.vmware.com/tools/esx/#{node[:repo][:vmware][:release]}/rhel#{node[:platform_version].to_i}/$basearch"
   end
-  return
-end
 
-yumrepo "vmware-tools" do
-  action :enable
-  definition "VMware Tools"
-  key "VMWARE-PACKAGING-GPG-KEY"
-  url "http://packages.vmware.com/tools/esx/#{node[:repo][:vmware][:release]}/rhel#{node[:platform_version].to_i}/$basearch"
-end
+  package "VMwareTools" do
+    action :remove
+  end
 
-package "VMwareTools" do
-  action :remove
-end
+  execute "/usr/bin/vmware-uninstall-tools.pl" do
+    action :run
+    only_if {File.exists?("/usr/bin/vmware-uninstall-tools.pl")}
+  end
 
-execute "/usr/bin/vmware-uninstall-tools.pl" do
-  action :run
-  only_if {File.exists?("/usr/bin/vmware-uninstall-tools.pl")}
-end
-
-package "vmware-tools-nox" do
-  action :install
-end
-
-package "vmware-tools-common" do
-  action :install
-end
-
-package "vmware-open-vm-tools-common" do
-  action :install
-end
-
-package "vmware-open-vm-tools-nox" do
-  action :install
-end
-
-package "vmware-open-vm-tools-kmod" do
-  action :install
-end
-
-service "vmware-tools" do
-  supports :status => true, :restart => true
-  action [ :enable, :start ]
-end
-
-if node[:repo][:vmware][:install_optional]
-  package "vmware-open-vm-tools-xorg-drv-display" do
+  package "vmware-tools-nox" do
     action :install
   end
 
-  package "vmware-open-vm-tools-xorg-drv-mouse" do
+  package "vmware-tools-common" do
     action :install
   end
-end
 
+  package "vmware-open-vm-tools-common" do
+    action :install
+  end
+
+  package "vmware-open-vm-tools-nox" do
+    action :install
+  end
+
+  package "vmware-open-vm-tools-kmod" do
+    action :install
+  end
+
+  service "vmware-tools" do
+    supports :status => true, :restart => true
+    action [ :enable, :start ]
+  end
+
+  if node[:repo][:vmware][:install_optional]
+    package "vmware-open-vm-tools-xorg-drv-display" do
+      action :install
+    end
+
+    package "vmware-open-vm-tools-xorg-drv-mouse" do
+      action :install
+    end
+  end
+end
 # vim: ai et sts=2 sw=2 ts=2
