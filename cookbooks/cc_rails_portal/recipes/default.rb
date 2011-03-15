@@ -24,7 +24,7 @@ user node[:cc_rails_portal][:user] do
   comment "portal user"
 end
 
-if node[:cc_rails_portal][:checkout] == "true"
+if node[:cc_rails_portal][:checkout]
   git node[:cc_rails_portal][:root] do
     repository node[:cc_rails_portal][:source_url]
     reference node[:cc_rails_portal][:source_branch]
@@ -59,7 +59,7 @@ execute "initialize-xportal-database" do
   command "rake db:migrate:reset"
 end
 
-if node[:cc_rails_portal][:checkout] == "true"
+if node[:cc_rails_portal][:checkout]
   # rake app:setup:new_app will fail without the database settings having reconnect: true
   # force setting that
   ruby_block "update-database-settings" do
