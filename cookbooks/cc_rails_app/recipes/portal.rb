@@ -17,19 +17,19 @@ cc_rails_app "portal" do
 end
 
 execute "setup-portal-app" do
-  user node[:cc_rails_portal][:user]
-  cwd node[:cc_rails_portal][:root]
-  command "ruby config/setup.rb -n '#{node[:cc_rails_portal][:name]}' -D #{node[:cc_rails_portal][:theme]} -u root -p '' -t #{node[:cc_rails_portal][:theme]} -y -q -f"
+  user node[:cc_rails_app][:user]
+  cwd node[:cc_rails_app][:portal][:root]
+  command "ruby config/setup.rb -n '#{node[:cc_rails_app][:portal][:name]}' -D #{node[:cc_rails_app][:portal][:theme]} -u root -p '' -t #{node[:cc_rails_app][:portal][:theme]} -y -q -f"
 end
 
 cc_rails_update_database "portal" do
   app :portal
 end
 
-if node[:cc_rails_portal][:checkout]
+if node[:cc_rails_app][:checkout]
   execute "portal-setup" do
-    user node[:cc_rails_portal][:user]
-    cwd node[:cc_rails_portal][:root]
+    user node[:cc_rails_app][:user]
+    cwd node[:cc_rails_app][:portal][:root]
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "yes | rake app:setup:new_app"
   end
