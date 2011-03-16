@@ -34,6 +34,9 @@ define :web_app, :template => "web_app.conf.erb" do
     if params[:cookbook]
       cookbook params[:cookbook]
     end
+    if params[:proxies] && params[:proxies].size > 0
+      include_recipe "apache2::mod_proxy"
+    end
     variables(
       :application_name => application_name,
       :params => params

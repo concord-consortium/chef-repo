@@ -44,4 +44,11 @@
   RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
   RewriteCond %{SCRIPT_FILENAME} !maintenance.html
   RewriteRule ^.*$ /system/maintenance.html [L]
+
+  <% if @params[:proxies] %>
+    <% @params[:proxies].each do |proxy| %>
+  ProxyPass        <%= proxy[:path] %>  <%= proxy[:remote] %>
+  ProxyPassReverse <%= proxy[:path] %>  <%= proxy[:remote] %>
+    <% end %>
+  <% end %>
 </VirtualHost>
