@@ -4,7 +4,7 @@
   <% end %>
   DocumentRoot <%= @params[:docroot] %>
 
-  RailsBaseURI /
+  RailsBaseURI <%= @params[:rails_base_uri] || "/" %>
   RailsMaxPoolSize <%= node[:rails][:max_pool_size] %>
   RailsPoolIdleTime 3600
   RailsEnv '<%= node[:rails][:environment] %>'
