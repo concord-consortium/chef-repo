@@ -36,7 +36,7 @@ define :cc_rails_update_database, :app => :portal do
   end
 
   execute "initialize-cc-rails-app-database" do
-    user node[:cc_rails_portal][:user]
+    user node[:cc_rails_app][:user]
     cwd config[:root]
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "rake db:migrate:reset"
