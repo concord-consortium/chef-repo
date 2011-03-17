@@ -26,6 +26,10 @@ define :web_app, :template => "web_app.conf.erb" do
   include_recipe "apache2::mod_deflate"
   include_recipe "apache2::mod_headers"
   
+  if params[:proxies] && params[:proxies].size > 0
+    include_recipe "apache2::mod_proxy"
+  end
+
   template "#{node[:apache][:dir]}/sites-available/#{application_name}.conf" do
     source params[:template]
     owner "root"
@@ -33,9 +37,6 @@ define :web_app, :template => "web_app.conf.erb" do
     mode 0644
     if params[:cookbook]
       cookbook params[:cookbook]
-    end
-    if params[:proxies] && params[:proxies].size > 0
-      include_recipe "apache2::mod_proxy"
     end
     variables(
       :application_name => application_name,
