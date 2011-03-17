@@ -16,7 +16,7 @@ end
 
 execute "geniverse-rails-setup" do
   user node[:cc_rails_app][:user]
-  cwd node[:cc_rails_app][:geniverse][:root]
+  cwd File.join(node[:cc_rails_app][:geniverse][:root], "Geniverse-SproutCore", "rails", "geniverse")
   environment ({'RAILS_ENV' => node[:rails][:environment]})
-  command "rake app:setup"
+  command "rake db:reset"
 end
