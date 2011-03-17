@@ -6,15 +6,14 @@
 
 # expects:
 #   app = symbol of the type of app being installed: [:portal, :geniverse, etc.]
-#   subdir = public folder subdirectory of your app
 #   rails_base_uri = the path that passenger should serve this rails app from
 #
-define :cc_rails_app, :app => :portal, :subdir => "/public", :rails_base_uri => "/" do
+define :cc_rails_app, :app => :portal, :rails_base_uri => "/" do
   config = node[:cc_rails_app][params[:app]]
   web_app params[:name] do
     cookbook "rails"
     template "rails_app.conf.erb"
-    docroot config[:root] + params[:subdir]
+    docroot "#{config[:root]}#{config[:passenger_root]}"
     rails_env node[:rails][:environment]
     rails_base_uri params[:rails_base_uri]
     notifies :reload, resources(:service => "apache2"), :delayed

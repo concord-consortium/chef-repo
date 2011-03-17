@@ -11,7 +11,6 @@ include_recipe "cc_rails_app::default"
 
 cc_rails_app "geniverse" do
   app :geniverse
-  subdir "/static"
   rails_base_uri "/rails"
 end
 
