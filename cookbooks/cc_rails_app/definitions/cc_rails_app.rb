@@ -38,10 +38,7 @@ define :cc_rails_app, :app => :portal, :rails_base_uri => "/" do
     end
   end
 
-  execute "bundle-install" do
+  bundle_install config[:root] do
     user node[:cc_rails_app][:user]
-    cwd config[:root]
-    command "bundle install"
   end
-
 end
