@@ -17,7 +17,7 @@ service "monit" do
   supports [:start, :restart, :stop]
 end
 
-template "/etc/monit/monitrc" do
+template node[:monit][:conf] do
   owner "root"
   group "root"
   mode 0700

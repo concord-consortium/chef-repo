@@ -5,11 +5,11 @@ class Chef
     # reload      Reload monit so it notices the new service.  :delayed (default) or :immediately.
     def monitrc(name, variables={}, reload = :delayed)
       log "Making monitrc for: #{name}"
-      template "/etc/monit/conf.d/#{name}.conf" do
+      template "#{node[:monit][:recipe_folder]}/#{name}.conf" do
         owner "root"
         group "root"
         mode 0644
-        source "#{name}.conf.erb"
+        source variables[:template] || "#{name}.conf.erb"
         variables variables
         notifies :restart, resources(:service => "monit"), reload
         action :create

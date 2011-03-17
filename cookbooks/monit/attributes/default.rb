@@ -1,3 +1,12 @@
+case platform
+when "redhat","centos","fedora"
+  default[:monit][:conf] = "/etc/monit.conf"
+  default[:monit][:recipe_folder] = "/etc/monit.d"
+else
+  default[:monit][:conf] = "/etc/monit/monitrc"
+  default[:monit][:recipe_folder] = "/etc/monit/conf.d"
+end
+
 default[:monit][:notify_email]          = "notify@example.com"
 
 default[:monit][:poll_period]           = 60
