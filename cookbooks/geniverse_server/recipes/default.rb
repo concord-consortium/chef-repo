@@ -83,6 +83,7 @@ web_app "resources" do
     {:path => "/biologica/", :remote => "http://localhost:8080/biologica/"},
     {:path => "/portal/", :remote => "http://portal.local/portal/"},
     {:path => "/lab/", :remote => "http://localhost:4020/lab/"},
+    {:path => "/static/", :remote => "http://localhost:4020/static/"},
   ]
 end
 # check out the resources into the resources folder...
