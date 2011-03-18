@@ -13,6 +13,7 @@ define :cc_rails_app, :app => :portal do
   web_app params[:name] do
     cookbook "rails"
     template "rails_app.conf.erb"
+    server_name config[:host_name]
     docroot "#{config[:root]}#{config[:passenger_root]}"
     rails_env node[:rails][:environment]
     rails_base_uri config[:rails_base_uri]
