@@ -9,6 +9,8 @@ default[:cc_rails_app][:portal][:source_branch] = "xproject-dev"
 default[:cc_rails_app][:portal][:root] = "/web/portal"
 default[:cc_rails_app][:portal][:passenger_root] = "/public"
 default[:cc_rails_app][:portal][:host_name] = nil
+default[:cc_rails_app][:portal][:gemfile] = "https://github.com/stepheneb/rigse/raw/master/Gemfile"
+default[:cc_rails_app][:portal][:rails_base_uri] = "/"
 
 # geniverse specific defaults
 default[:cc_rails_app][:geniverse][:source_url] = "git://github.com/concord-consortium/geniverse-rails-server.git"
@@ -16,6 +18,8 @@ default[:cc_rails_app][:geniverse][:source_branch] = "master"
 default[:cc_rails_app][:geniverse][:root] = "/web/geniverse.rails"
 default[:cc_rails_app][:geniverse][:passenger_root] = "/static"
 default[:cc_rails_app][:geniverse][:host_name] = nil
+default[:cc_rails_app][:geniverse][:gemfile] = "https://github.com/concord-consortium/Geniverse-SproutCore/raw/master/Gemfile"
+default[:cc_rails_app][:geniverse][:rails_base_uri] = "/rails"
 
 [:portal].each do |app|
   # override these if you need to customize the database settings
