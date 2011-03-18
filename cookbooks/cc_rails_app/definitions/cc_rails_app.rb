@@ -39,6 +39,11 @@ define :cc_rails_app, :app => :portal do
     end
   end
 
+  remote_file "#{config[:root]}/Gemfile" do
+    source config[:gemfile]
+    action :create_if_missing
+  end
+
   bundle_install config[:root] do
     user node[:cc_rails_app][:user]
   end
