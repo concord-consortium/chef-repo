@@ -1,0 +1,7 @@
+check host geniverse-sproutcore-server with address 127.0.0.1
+start program = "/bin/sh -c 'cd <%= @app_root %>; rm -rf tmp; nohup sc-server &'"
+    if failed port 4020 protocol HTTP
+        request /
+        with timeout 10 seconds
+        then restart
+

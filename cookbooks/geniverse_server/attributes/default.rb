@@ -1,0 +1,6 @@
+default[:geniverse_server][:resources][:root] = "/web/geniverse.resources"
+default[:geniverse_server][:gwt][:root] = "/web/geniverse.gwt"
+default[:geniverse_server][:chat][:root] = "/web/geniverse.chat"
+default[:geniverse_server][:sproutcore][:root] = "/web/geniverse.sproutcore"
+default[:geniverse_server][:portal][:root] = "/web/geniverse.portal"
+default[:geniverse_server][:rails][:root] = "/web/geniverse.rails"

@@ -1,0 +1,7 @@
+check host geniverse-chat-server with address 127.0.0.1
+start program = "/bin/sh -c 'cd <%= @app_root %> && thin -d -p 9292 start'"
+    if failed port 9292 protocol HTTP
+        request /
+        with timeout 10 seconds
+        then restart
+
