@@ -38,9 +38,18 @@ if node[:cc_rails_app][:checkout]
     command "yes | rake app:setup:new_app"
   end
 
-  execute "create-asset-packages" do
-    user node[:cc_rails_app][:user]
-    cwd root
-    command "compass --sass-dir public/stylesheets/sass/ --css-dir public/stylesheets/ -s compressed --force; rake asset:packager:build_all"
-  end
+  # FIXME This should get done, but for some reason, tends to make chef hang...
+  # execute "compile-sass" do
+  #   user node[:cc_rails_app][:user]
+  #   cwd root
+  #   environment ({'RAILS_ENV' => node[:rails][:environment]})
+  #   command "compass --sass-dir public/stylesheets/sass/ --css-dir public/stylesheets/ -s compressed --force"
+  # end
+
+  # execute "package-assets" do
+  #   user node[:cc_rails_app][:user]
+  #   cwd root
+  #   environment ({'RAILS_ENV' => node[:rails][:environment]})
+  #   command "rake asset:packager:build_all"
+  # end
 end
