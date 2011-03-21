@@ -16,9 +16,12 @@ cc_rails_app "portal" do
   app :portal
 end
 
+root = node[:cc_rails_app][:portal][:root]
+root = File.join(root,"current") if node[:cc_rails_app][:portal][:capistrano_folders]
+
 execute "setup-portal-app" do
   user node[:cc_rails_app][:user]
-  cwd node[:cc_rails_app][:portal][:root]
+  cwd root
   command "ruby config/setup.rb -n '#{node[:cc_rails_app][:portal][:name]}' -D #{node[:cc_rails_app][:portal][:theme]} -u root -p '' -t #{node[:cc_rails_app][:portal][:theme]} -y -q -f"
 end
 
@@ -29,7 +32,7 @@ end
 if node[:cc_rails_app][:checkout]
   execute "portal-setup" do
     user node[:cc_rails_app][:user]
-    cwd node[:cc_rails_app][:portal][:root]
+    cwd root
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "yes | rake app:setup:new_app"
   end

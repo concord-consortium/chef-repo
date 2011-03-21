@@ -11,6 +11,7 @@ default[:cc_rails_app][:portal][:passenger_root] = "/public"
 default[:cc_rails_app][:portal][:host_name] = nil
 default[:cc_rails_app][:portal][:gemfile] = "https://github.com/stepheneb/rigse/raw/master/Gemfile"
 default[:cc_rails_app][:portal][:rails_base_uri] = "/"
+default[:cc_rails_app][:portal][:capistrano_folders] = false
 
 # geniverse specific defaults
 default[:cc_rails_app][:geniverse][:source_url] = "git://github.com/concord-consortium/geniverse-rails-server.git"

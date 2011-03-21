@@ -14,18 +14,47 @@ define :cc_rails_app, :app => :portal do
     cookbook "rails"
     template "rails_app.conf.erb"
     server_name config[:host_name]
-    docroot "#{config[:root]}#{config[:passenger_root]}"
+    docroot "#{config[:root]}#{config[:capistrano_folders] ? "/current" : ""}#{config[:passenger_root]}"
     rails_env node[:rails][:environment]
     rails_base_uri config[:rails_base_uri]
     notifies :reload, resources(:service => "apache2"), :delayed
   end
 
   if node[:cc_rails_app][:checkout]
-    git config[:root] do
-      repository config[:source_url]
-      reference config[:source_branch]
-      enable_submodules true
-      action :sync
+    cap_setup config[:root] do
+    end
+    if config[:capistrano_folders]
+      deploy config[:root] do
+        repo config[:source_url]
+        branch config[:source_branch]
+        enable_submodules true
+        migrate false
+        action :deploy
+        restart_command "touch tmp/restart.txt"
+        symlink_before_migrate({
+          "config/database.yml" => "config/database.yml",
+          "config/settings.yml" => "config/settings.yml",
+          "config/installer.yml" => "config/installer.yml",
+          "config/mailer.yml" => "config/mailer.yml",
+          "config/rinet_data.yml" => "config/rinet_data.yml",
+          "config/newrelic.yml" => "config/newrelic.yml",
+          "config/initializers/site_keys.rb" => "config/initializers/site_keys.rb",
+          "config/initializers/subdirectory.rb" => "config/initializers/subdirectory.rb",
+          "public/otrunk-examples" => "public/otrunk-examples",
+          "public/sparks-content" => "public/sparks-content",
+          "public/installers" => "public/installers",
+          "config/nces_data" => "config/nces_data",
+          "rinet_data" => "rinet_data",
+          "system" => "public/system"
+        })
+      end
+    else
+      git config[:root] do
+        repository config[:source_url]
+        reference config[:source_branch]
+        enable_submodules true
+        action :sync
+      end
     end
 
     # we have to check out as root, and then change the ownership of the source directory since
@@ -39,12 +68,14 @@ define :cc_rails_app, :app => :portal do
     end
   end
 
-  remote_file "#{config[:root]}/Gemfile" do
+  root = config[:root]
+  root = File.join(root, "current") if config[:capistrano_folders]
+  remote_file "#{root}/Gemfile" do
     source config[:gemfile]
     action :create_if_missing
   end
 
-  bundle_install config[:root] do
+  bundle_install root do
     user node[:cc_rails_app][:user]
   end
 end

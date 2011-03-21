@@ -16,7 +16,9 @@ define :cc_rails_update_database, :app => :portal do
     block do
       require 'yaml'
 
-      dbYml = File.join(config[:root], "config", "database.yml")
+      root = config[:root]
+      root = File.join(config[:root],"shared") if config[:capistrano_folders]
+      dbYml = File.join(root, "config", "database.yml")
       opts = YAML.load_file(dbYml)
       opts.each do |env,h|
         h["reconnect"] = true
@@ -35,9 +37,11 @@ define :cc_rails_update_database, :app => :portal do
     action :create
   end
 
+  root = config[:root]
+  root = File.join(config[:root],"current") if config[:capistrano_folders]
   execute "initialize-cc-rails-app-database" do
     user node[:cc_rails_app][:user]
-    cwd config[:root]
+    cwd root
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "rake db:migrate:reset"
   end
