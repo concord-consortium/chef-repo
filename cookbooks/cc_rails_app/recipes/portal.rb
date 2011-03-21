@@ -37,3 +37,9 @@ if node[:cc_rails_app][:checkout]
     command "yes | rake app:setup:new_app"
   end
 end
+
+execute "create-asset-packages" do
+  user node[:cc_rails_app][:user]
+  cwd root
+  command "compass --sass-dir public/stylesheets/sass/ --css-dir public/stylesheets/ -s compressed --force; rake asset:packager:build_all"
+end
