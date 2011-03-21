@@ -24,8 +24,8 @@ default[:cc_rails_app][:geniverse][:rails_base_uri] = "/rails"
 
 [:portal].each do |app|
   # override these if you need to customize the database settings
-  default[:cc_rails_app][app][:mysql][:host] = nil
+  default[:cc_rails_app][app][:mysql][:host] = "localhost"
   default[:cc_rails_app][app][:mysql][:database] = nil
-  default[:cc_rails_app][app][:mysql][:username] = nil
-  default[:cc_rails_app][app][:mysql][:password] = nil
+  default[:cc_rails_app][app][:mysql][:username] = "root"
+  default[:cc_rails_app][app][:mysql][:password] = ""
 end

@@ -16,13 +16,14 @@ cc_rails_app "portal" do
   app :portal
 end
 
-root = node[:cc_rails_app][:portal][:root]
-root = File.join(root,"current") if node[:cc_rails_app][:portal][:capistrano_folders]
+config = node[:cc_rails_app][:portal]
+root = config[:root]
+root = File.join(root,"current") if config[:capistrano_folders]
 
 execute "setup-portal-app" do
   user node[:cc_rails_app][:user]
   cwd root
-  command "ruby config/setup.rb -n '#{node[:cc_rails_app][:portal][:name]}' -D #{node[:cc_rails_app][:portal][:theme]} -u root -p '' -t #{node[:cc_rails_app][:portal][:theme]} -y -q -f"
+  command "ruby config/setup.rb -n '#{config[:name]}' -D #{config[:theme]} -u #{config[:mysql][:username]} -p '#{config[:mysql][:password]}' -t #{config[:theme]} -y -q -f"
 end
 
 cc_rails_update_database "portal" do
