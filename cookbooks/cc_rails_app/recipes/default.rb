@@ -12,6 +12,7 @@ include_recipe "apache2"
 include_recipe "rails"
 include_recipe "bundler"
 include_recipe "xml"
+include_recipe "git"
 
 user node[:cc_rails_app][:user] do
   comment "rails apps user"

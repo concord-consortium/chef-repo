@@ -11,3 +11,5 @@ depends "bundler"
 depends "xslt"
 depends "xml"
 depends "unzip"
+depends "git"
+
