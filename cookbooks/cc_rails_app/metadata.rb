@@ -12,4 +12,4 @@ depends "xslt"
 depends "xml"
 depends "unzip"
 depends "git"
-
+depends "passenger_apache2"

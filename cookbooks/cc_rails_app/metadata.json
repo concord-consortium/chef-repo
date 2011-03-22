@@ -28,6 +28,9 @@
     ],
     "git": [
 
+    ],
+    "passenger_apache2": [
+
     ]
   },
   "recommendations": {
