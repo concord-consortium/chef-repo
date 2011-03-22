@@ -20,7 +20,7 @@ config = node[:cc_rails_app][:portal]
 root = config[:root]
 root = File.join(root,"current") if config[:capistrano_folders]
 
-execute "setup-portal-app" do
+execute "setup-portal-settings" do
   user node[:cc_rails_app][:user]
   cwd root
   command "ruby config/setup.rb -n '#{config[:name]}' -D #{config[:theme]} -u #{config[:mysql][:username]} -p '#{config[:mysql][:password]}' -t #{config[:theme]} -y -q -f"
