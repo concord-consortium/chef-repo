@@ -1,4 +1,9 @@
 bash -c '
+
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
+echo "gem: --no-ri --no-rdoc" >> /etc/gemrc
+
 rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-4.noarch.rpm
 rpm -Uvh http://download.elff.bravenet.com/5/i386/elff-release-5-3.noarch.rpm
 
@@ -38,4 +43,4 @@ cat <<'EOP'
 EOP
 ) > /etc/chef/first-boot.json
 
-/usr/bin/chef-client -j /etc/chef/first-boot.json'
+/usr/local/bin/chef-client -j /etc/chef/first-boot.json'
