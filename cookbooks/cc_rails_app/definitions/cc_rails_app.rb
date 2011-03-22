@@ -76,6 +76,6 @@ define :cc_rails_app, :app => :portal do
   end
 
   bundle_install root do
-    user node[:cc_rails_app][:user]
+    # user node[:cc_rails_app][:user]
   end
 end

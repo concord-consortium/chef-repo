@@ -64,7 +64,7 @@ git node[:geniverse_server][:sproutcore][:root] do
 end
 
 bundle_install node[:geniverse_server][:sproutcore][:root] do
-  user node[:cc_rails_app][:user]
+  # user node[:cc_rails_app][:user]
 end
 
 monitrc("geniverse-sproutcore", :template => "geniverse-sproutcore.monit.erb", :app_root => node[:geniverse_server][:sproutcore][:root])
