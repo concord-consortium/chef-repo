@@ -68,7 +68,7 @@ define :ruby_packages, :action => :install do
     }
   end
 
-  unless packages.nil?
+  unless packages.nil? || node[:ruby][:use_existing_ruby]
     packages.each do |pkg|
       package pkg do
         action params[:action]
