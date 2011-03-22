@@ -1,6 +1,8 @@
 bash -c '
 
-export PATH=$PATH:/usr/local/bin:/usr/local/sbin
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin
+
+date -s "<%= `date`.strip %>"
 
 echo "gem: --no-ri --no-rdoc" >> /etc/gemrc
 
