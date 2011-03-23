@@ -33,6 +33,7 @@ if platform?("centos","redhat")
     return
   else
     package "httpd-devel"
+    package "curl-devel" if node[:passenger][:version] =~ /^3\./
   end
 else
   %w{ apache2-prefork-dev libapr1-dev }.each do |pkg|
@@ -40,6 +41,7 @@ else
       action :upgrade
     end
   end
+  package "libcurl4-openssl-dev" if node[:passenger][:version] =~ /^3\./
 end
 
 gem_package "passenger" do
