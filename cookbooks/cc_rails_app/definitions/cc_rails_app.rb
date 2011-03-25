@@ -21,9 +21,9 @@ define :cc_rails_app, :app => :portal do
   end
 
   if node[:cc_rails_app][:checkout]
-    cap_setup config[:root] do
-    end
     if config[:capistrano_folders]
+      cap_setup config[:root] do
+      end
       deploy config[:root] do
         repo config[:source_url]
         branch config[:source_branch]
