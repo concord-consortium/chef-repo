@@ -47,6 +47,9 @@ define :cc_rails_app, :app => :portal do
           "rinet_data" => "rinet_data",
           "system" => "public/system"
         })
+        not_if do
+          File.exists?(File.join(config[:root], "skip-provisioning"))
+        end
       end
     else
       git config[:root] do
@@ -54,6 +57,9 @@ define :cc_rails_app, :app => :portal do
         reference config[:source_branch]
         enable_submodules true
         action :sync
+        not_if do
+          File.exists?(File.join(config[:root], "skip-provisioning"))
+        end
       end
     end
 

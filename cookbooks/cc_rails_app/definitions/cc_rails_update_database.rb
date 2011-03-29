@@ -35,6 +35,9 @@ define :cc_rails_update_database, :app => :portal do
       end
     end
     action :create
+    not_if do
+      File.exists?(File.join(config[:root], "skip-provisioning"))
+    end
   end
 
   root = config[:root]
@@ -44,5 +47,8 @@ define :cc_rails_update_database, :app => :portal do
     cwd root
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "rake db:migrate:reset"
+    not_if do
+      File.exists?(File.join(config[:root], "skip-provisioning"))
+    end
   end
 end

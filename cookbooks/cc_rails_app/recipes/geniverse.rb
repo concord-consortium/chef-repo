@@ -19,4 +19,11 @@ execute "geniverse-rails-setup" do
   cwd File.join(node[:cc_rails_app][:geniverse][:root], "Geniverse-SproutCore", "rails", "geniverse")
   environment ({'RAILS_ENV' => node[:rails][:environment]})
   command "rake db:reset"
+  not_if do
+    File.exists?(File.join(node[:cc_rails_app][:geniverse][:root], "skip-provisioning"))
+  end
+end
+
+file File.join(node[:cc_rails_app][:geniverse][:root], "skip-provisioning") do
+  action :touch
 end

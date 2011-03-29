@@ -24,6 +24,9 @@ execute "setup-portal-settings" do
   user node[:cc_rails_app][:user]
   cwd root
   command "ruby config/setup.rb -n '#{config[:name]}' -D #{config[:theme]} -u #{config[:mysql][:username]} -p '#{config[:mysql][:password]}' -t #{config[:theme]} -y -q -f"
+  not_if do
+    File.exists?(File.join(config[:root], "skip-provisioning"))
+  end
 end
 
 cc_rails_update_database "portal" do
@@ -36,6 +39,9 @@ if node[:cc_rails_app][:checkout]
     cwd root
     environment ({'RAILS_ENV' => node[:rails][:environment]})
     command "yes | rake app:setup:new_app"
+    not_if do
+      File.exists?(File.join(config[:root], "skip-provisioning"))
+    end
   end
 
   # FIXME This should get done, but for some reason, tends to make chef hang...
@@ -52,4 +58,8 @@ if node[:cc_rails_app][:checkout]
   #   environment ({'RAILS_ENV' => node[:rails][:environment]})
   #   command "rake asset:packager:build_all"
   # end
+end
+
+file File.join(config[:root], "skip-provisioning") do
+  action :touch
 end
