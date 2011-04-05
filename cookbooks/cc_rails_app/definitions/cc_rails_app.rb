@@ -18,6 +18,7 @@ define :cc_rails_app, :app => :portal do
     rails_env node[:rails][:environment]
     rails_base_uri config[:rails_base_uri]
     proxies config[:proxies]
+    extra_config config[:extra_config]
     notifies :reload, resources(:service => "apache2"), :delayed
   end
 
