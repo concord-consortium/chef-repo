@@ -17,6 +17,7 @@ define :cc_rails_app, :app => :portal do
     docroot "#{config[:root]}#{config[:capistrano_folders] ? "/current" : ""}#{config[:passenger_root]}"
     rails_env node[:rails][:environment]
     rails_base_uri config[:rails_base_uri]
+    proxies config[:proxies]
     notifies :reload, resources(:service => "apache2"), :delayed
   end
 

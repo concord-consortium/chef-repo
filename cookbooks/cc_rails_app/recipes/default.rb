@@ -9,6 +9,8 @@
 
 
 include_recipe "apache2"
+include_recipe "apache2::mod_proxy"
+include_recipe "apache2::mod_proxy_http"
 include_recipe "bundler"
 include_recipe "xml"
 include_recipe "git"
