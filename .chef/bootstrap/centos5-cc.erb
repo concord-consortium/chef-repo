@@ -13,7 +13,8 @@ yum install -q -y gcc gcc-c++ automake autoconf make
 
 gem update --system
 gem update
-gem install ohai chef --no-rdoc --no-ri --verbose <%= '--prerelease' if @config[:prerelease] %>
+gem install ohai --no-rdoc --no-ri --verbose <%= '--prerelease' if @config[:prerelease] %>
+gem install chef -v 0.9.16 --no-rdoc --no-ri --verbose
 
 mkdir -p /etc/chef
 
