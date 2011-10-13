@@ -4,12 +4,12 @@ default[:cc_rails_app][:checkout] = true
 # portal specific defaults
 default[:cc_rails_app][:portal][:theme] = "xproject"
 default[:cc_rails_app][:portal][:name] = "Cross Project Portal"
-default[:cc_rails_app][:portal][:source_url] = "git://github.com/stepheneb/rigse.git"
+default[:cc_rails_app][:portal][:source_url] = "git://github.com/concord-consortium/rigse.git"
 default[:cc_rails_app][:portal][:source_branch] = "xproject-dev"
 default[:cc_rails_app][:portal][:root] = "/web/portal"
 default[:cc_rails_app][:portal][:passenger_root] = "/public"
 default[:cc_rails_app][:portal][:host_name] = nil
-default[:cc_rails_app][:portal][:gemfile] = "https://github.com/stepheneb/rigse/raw/master/Gemfile"
+default[:cc_rails_app][:portal][:gemfile] = "https://github.com/concord-consortium/rigse/raw/master/Gemfile"
 default[:cc_rails_app][:portal][:rails_base_uri] = "/"
 default[:cc_rails_app][:portal][:capistrano_folders] = false
 default[:cc_rails_app][:portal][:proxies] = []
