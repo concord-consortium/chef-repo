@@ -8,6 +8,9 @@
   "platforms": {
   },
   "dependencies": {
+    "cc_ruby192_src": [
+
+    ],
     "apache2": [
 
     ],

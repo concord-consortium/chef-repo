@@ -5,6 +5,7 @@ description      "Installs/Configures various CC rails apps"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
 version          "0.0.1"
 
+depends "cc_ruby192_src"
 depends "apache2"
 depends "rails"
 depends "bundler"
