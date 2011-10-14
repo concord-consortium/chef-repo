@@ -20,20 +20,28 @@ config = node[:cc_rails_app][:portal]
 root = config[:root]
 root = File.join(root,"current") if config[:capistrano_folders]
 
-execute "setup-portal-settings" do
-  user node[:cc_rails_app][:user]
-  cwd root
-  command "ruby config/setup.rb -n '#{config[:name]}' -D #{config[:theme]} -u #{config[:mysql][:username]} -p '#{config[:mysql][:password]}' -t #{config[:theme]} -y -q -f"
-  not_if do
-    File.exists?(File.join(config[:root], "skip-provisioning"))
+
+
+if node[:cc_rails_app][:setup]
+
+  # run the config setup script
+  # TODO: this probably needs to be reworked
+  # so that it functions with more recent versions
+  execute "setup-portal-settings" do
+    user node[:cc_rails_app][:user]
+    cwd root
+    command "ruby config/setup.rb -n '#{config[:name]}' -D #{config[:theme]} -u #{config[:mysql][:username]} -p '#{config[:mysql][:password]}' -t #{config[:theme]} -y -q -f"
+    not_if do
+      File.exists?(File.join(config[:root], "skip-provisioning"))
+    end
   end
-end
 
-cc_rails_update_database "portal" do
-  app :portal
-end
-
-if node[:cc_rails_app][:checkout]
+  # intialize the database
+  cc_rails_update_database "portal" do
+    app :portal
+  end
+  
+  # run rake setup task
   execute "portal-setup" do
     user node[:cc_rails_app][:user]
     cwd root

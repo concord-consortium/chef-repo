@@ -83,7 +83,20 @@ define :cc_rails_app, :app => :portal do
     action :create_if_missing
   end
 
-  bundle_install root do
-    # user node[:cc_rails_app][:user]
+
+  # Bundle install will fail installing
+  # jlnp gem & hpricot on ruby 1.9.x
+  # you could update hpricot, but be 
+  # sure to update jnlp gem too.
+  #
+  bash "run bundle install in app directory" do
+    cwd root
+    path ['/usr/local/bin','/usr/bin']
+    code "bundle install"
   end
+
+  # node[:bundler][:app_path] = config[:root]
+  # bundle_install root do
+  #   user node[:cc_rails_app][:user]
+  # end
 end

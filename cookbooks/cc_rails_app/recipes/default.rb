@@ -8,6 +8,7 @@
 #
 
 
+include_recipe "cc_ruby192_src"
 include_recipe "apache2"
 include_recipe "apache2::mod_proxy"
 include_recipe "apache2::mod_proxy_http"
