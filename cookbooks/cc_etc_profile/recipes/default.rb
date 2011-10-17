@@ -17,3 +17,9 @@ cookbook_file "/etc/sysconfig/iptables" do
   source "iptables"
   mode "0600"
 end
+
+# typically this will run /etc/init.d/example_service start
+service "iptables" do
+  action :restart
+end
+
