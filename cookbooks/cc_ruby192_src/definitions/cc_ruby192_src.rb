@@ -30,7 +30,7 @@ define :cc_ruby192_src do
     cwd src_dir
     command "tar -zxvf #{tar_file}"
     not_if do
-      File.exists?(tar_file)
+      File.exists?(ruby_dir)
     end
   end
 
