@@ -46,7 +46,7 @@ define :cc_rails_update_database, :app => :portal do
     user node[:cc_rails_app][:user]
     cwd root
     environment ({'RAILS_ENV' => node[:rails][:environment]})
-    command "rake db:migrate:reset"
+    command "bundle exec rake db:migrate:reset"
     not_if do
       File.exists?(File.join(config[:root], "skip-provisioning"))
     end
