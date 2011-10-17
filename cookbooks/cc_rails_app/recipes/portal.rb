@@ -21,16 +21,6 @@ root = config[:root]
 root = File.join(root,"current") if config[:capistrano_folders]
 
 
-
-unless node[:cc_rails_app][:setup]
-  # This file indicates that we don't wish to do anything
-  # potentially destructive reset dabatabases, 
-  # reset app settings &etc.  
-  file File.join(config[:root], "skip-provisioning") do
-    action :touch
-  end
-end
-
 # run the config setup script
 # TODO: this probably needs to be reworked
 # so that it functions with more recent versions
@@ -60,20 +50,15 @@ execute "portal-setup" do
 end
 
 # FIXME This should get done, but for some reason, tends to make chef hang...
-# execute "compile-sass" do
-#   user node[:cc_rails_app][:user]
-#   cwd root
-#   environment ({'RAILS_ENV' => node[:rails][:environment]})
-#   command "compass --sass-dir public/stylesheets/sass/ --css-dir public/stylesheets/ -s compressed --force"
-# end
-
-# execute "package-assets" do
-#   user node[:cc_rails_app][:user]
-#   cwd root
-#   environment ({'RAILS_ENV' => node[:rails][:environment]})
-#   command "rake asset:packager:build_all"
-# end
+# This isn't required anymore (as of rails3 branch
+# execute "compile-sass" 
+# execute "package-assets" 
 
 file File.join(config[:root], "skip-provisioning") do
   action :create
 end
+
+service "httpd" do
+  action :restart
+end
+
