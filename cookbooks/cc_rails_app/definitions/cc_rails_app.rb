@@ -88,15 +88,17 @@ define :cc_rails_app, :app => :portal do
   # jlnp gem & hpricot on ruby 1.9.x
   # you could update hpricot, but be 
   # sure to update jnlp gem too.
-  #
-  bash "run bundle install in app directory" do
+  bundler_depot = File.join(root,"config","bundle")
+  excluded_groups = %w(development test)
+
+  script 'Bundling the gems' do
+    interpreter 'bash'
+    user node[:cc_rails_app][:user]
     cwd root
     path ['/usr/local/bin','/usr/bin']
-    code "bundle install"
+    code <<-EOS
+      bundle install --quiet --deployment --path #{bundler_depot} \
+        --without #{excluded_groups.join(' ')}
+    EOS
   end
-
-  # node[:bundler][:app_path] = config[:root]
-  # bundle_install root do
-  #   user node[:cc_rails_app][:user]
-  # end
 end
