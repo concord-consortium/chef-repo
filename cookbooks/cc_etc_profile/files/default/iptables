@@ -19,6 +19,8 @@
 -A RH-Firewall-1-INPUT -p 51 -j ACCEPT
 # rule to allow DMZ to port 80
 -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 80 -s 63.138.119.128/25 -j ACCEPT
+# rule to allow DMZ to port 8080
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 8080 -s 63.138.119.128/25 -j ACCEPT
 -A RH-Firewall-1-INPUT -p udp --dport 5353 -d 224.0.0.251 -j ACCEPT
 -A RH-Firewall-1-INPUT -p udp -m udp --dport 631 -j ACCEPT
 -A RH-Firewall-1-INPUT -p tcp -m tcp --dport 631 -j ACCEPT
