@@ -23,3 +23,16 @@ service "iptables" do
   action :restart
 end
 
+# move git
+bash "move old git" do
+  old_git = File.join('usr','local','bin','git')
+  user "root"
+  cwd "/tmp/"
+  code <<-EOH
+    mv /usr/local/bin/git /usr/local/bin/old-git
+  EOH
+  only_if do
+    File.exists?(old_git)
+  end
+end
+

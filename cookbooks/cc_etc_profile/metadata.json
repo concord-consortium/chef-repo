@@ -1,7 +1,7 @@
 {
   "name": "cc_etc_profile",
   "description": "Installs /etc/profile",
-  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "long_description": "= DESCRIPTION:\n\nActually this cookbook should probably just be called \"CC-CENTOS VMRUBY1.9.1 HACKS\"\nIt attempts to undo some over-provisioning in the base image. Mostly it uninstalls packages\nor moves them out of the way. (old git, old ruby ...)\n\nTODO: Ruby 1.9.2 gems are being installed in a directory named 1.9.1 (!) \n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
   "maintainer": "The Concord Consortium",
   "maintainer_email": "npaessel@concord.org",
   "license": "All rights reserved",

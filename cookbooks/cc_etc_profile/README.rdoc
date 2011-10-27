@@ -1,5 +1,11 @@
 = DESCRIPTION:
 
+Actually this cookbook should probably just be called "CC-CENTOS VMRUBY1.9.1 HACKS"
+It attempts to undo some over-provisioning in the base image. Mostly it uninstalls packages
+or moves them out of the way. (old git, old ruby ...)
+
+TODO: Ruby 1.9.2 gems are being installed in a directory named 1.9.1 (!) 
+
 = REQUIREMENTS:
 
 = ATTRIBUTES:
