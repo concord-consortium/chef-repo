@@ -4,6 +4,8 @@ export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin
 
 date -s "<%= `date`.strip %>"
 
+echo 'export PATH=$PATH:/usr/local/bin' >> /etc/sysconfig/httpd
+
 echo "gem: --no-ri --no-rdoc" >> /etc/gemrc
 
 rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
