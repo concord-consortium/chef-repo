@@ -1,6 +1,11 @@
 bash -c '
 <%= "export http_proxy=\"#{knife_config[:bootstrap_proxy]}\"" if knife_config[:bootstrap_proxy] -%>
 
+# disable SELINUX permanently and for the currently running server
+echo "SELINUX=disabled" > /etc/selinux/config
+echo "SELINUXTYPE=targeted" >> /etc/selinux/config
+setenforce 0 
+
 yum install -y wget
 
 if [ ! -f /usr/bin/chef-client ]; then
